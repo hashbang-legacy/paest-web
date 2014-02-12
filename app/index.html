@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>pae.st</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!--(if target dev)><!-->
+    <link rel="stylesheet/less" type="text/css" href="styles/main.less">
+    <script>
+      var less = {
+        env:'development',
+        async:true,
+        fileAsync:false,
+        poll:1000,
+        dumpLineNumbers:"mediaQuery",
+        logLevel: 0
+      }
+    </script>
+    <script type="text/javascript" src="bower_components/less/dist/less-1.6.1.min.js"></script>
+    <script type="text/javascript">less.watch()</script>
+    <!--<!(endif)-->
+    <!--(if target dist)>
+    <link rel="stylesheet" href="styles/main.css">
+    <!(endif)-->
+  </head>
+  <body ng-app="paestApp">
+    <div class="container" ng-view=""></div>
+
+    <script src="bower_components/angular/angular.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
+
+        <!-- build:js scripts/modules.js -->
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <!-- endbuild -->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script src="bower_components/less/dist/less-1.6.3.js"></script>
+    <!-- endbower -->
+    <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/angular-ui-bootstrap/src/transition/transition.js"></script>
+    <script src="bower_components/angular-ui-bootstrap/src/modal/modal.js"></script>
+    <!-- endbuild -->
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <!-- endbuild -->
+
+  </body>
+</html>
