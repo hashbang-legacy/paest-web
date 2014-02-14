@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('paestApp')
-  .controller('MainCtrl', function ($scope,$location,$routeParams) {
+  .controller('MainCtrl', function ($scope,$rootScope,$location,$routeParams) {
 
     if ($routeParams.id){
       $scope.id = $routeParams.id;
+      $rootScope.id = $routeParams.id;
     } else {
         var chars = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
         var base = chars.length;
