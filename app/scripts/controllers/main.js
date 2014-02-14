@@ -1,9 +1,22 @@
 'use strict';
 
 angular.module('paestApp')
-  .controller('MainCtrl', function ($scope,$routeParams) {
+  .controller('MainCtrl', function ($scope,$location,$routeParams) {
 
-    $scope.id = $routeParams.id;
+    if ($routeParams.id){
+      $scope.id = $routeParams.id;
+    } else {
+        var chars = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
+        var base = chars.length;
+        var id = '';
+        var enc = Math.floor(Math.random() * (1000000 - 1000) + 1000)
+        while(enc) {
+          var remainder = enc % base;
+          enc = Math.floor(enc / base);
+          id = chars[remainder].toString() + id;
+        }
+        $location.path('/'+id)
+    }
 
     $scope.aceLoaded = function(_editor){
 
