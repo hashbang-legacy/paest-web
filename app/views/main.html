@@ -8,8 +8,9 @@
   }"></div>
 <div id="status-bar">
 <span class="status">[ path: {{id}} ]</span>
-<span class="status">[ vim_mode: off ]</span>
-<span class="status">[ autosave: on ]</span>
+<span class="status">[ lang: {{ language || 'js' }} ]</span>
+<span class="status">[ vim_mode: {{ settings.vim_mode || 'off' }} ]</span>
+<span class="status">[ autosave: {{ settings.autosave || 'on'}} ]</span>
 <span class="status">[ help: alt+h ]</span>
 </div>
 
