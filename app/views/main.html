@@ -7,11 +7,12 @@
   onChange: aceChanged
   }"></div>
 <div id="status-bar">
-<span class="status">[ path: {{id}} ]</span>
-<span class="status">[ lang: {{ language || 'js' }} ]</span>
-<span class="status">[ vim_mode: {{ settings.vim_mode || 'off' }} ]</span>
-<span class="status">[ autosave: {{ settings.autosave || 'on'}} ]</span>
-<span class="status">[ help: alt+h ]</span>
+<span class="status">[ {{id}} ]</span>
+<span class="status">[ {{ status || 'editing'}} ]</span>
+<span class="status">[ {{ language || 'js' }} ]</span>
+<span class="status">[ !vim_mode ]</span>
+<span class="status">[ autosave ]</span>
+<span class="status">[ ? alt+h ]</span>
 </div>
 
 
