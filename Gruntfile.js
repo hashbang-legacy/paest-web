@@ -31,8 +31,8 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
+          livereload: '<%= connect.options.livereload %>',
+       },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -45,16 +45,22 @@ module.exports = function (grunt) {
       options: {
         port: 9050,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
+        // hostname: 'localhost',
         livereload: 35799
       },
       livereload: {
         options: {
-          open: true,
-          base: [
-            '.tmp',
-            '<%= yeoman.app %>'
-          ]
+          middleware: function (connect) {
+            return [
+              require('connect-modrewrite')([
+                '!\\.html|\\.js|\\.css|\\.less|\\.png$ /index.html [L]'
+              ]),
+              //require('connect-livereload')(),
+              connect.static(require('path').resolve('.tmp')),
+              connect.static(require('path').resolve('app'))
+            ];
+          },
         }
       },
       test: {
