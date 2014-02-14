@@ -49,7 +49,7 @@ module.exports = function (grunt) {
         // hostname: 'localhost',
         livereload: 35799
       },
-      livereload: {
+      dev: {
         options: {
           middleware: function (connect) {
             return [
@@ -63,6 +63,20 @@ module.exports = function (grunt) {
           },
         }
       },
+      dist: {
+        options: {
+          middleware: function (connect) {
+            return [
+              require('connect-modrewrite')([
+                '!\\.html|\\.js|\\.css|\\.less|\\.png$ /index.html [L]'
+              ]),
+              //require('connect-livereload')(),
+              connect.static(require('path').resolve('.tmp')),
+              connect.static(require('path').resolve('dist'))
+            ];
+          },
+        }
+      },
       test: {
         options: {
           port: 9001,
@@ -71,11 +85,6 @@ module.exports = function (grunt) {
             'test',
             '<%= yeoman.app %>'
           ]
-        }
-      },
-      dist: {
-        options: {
-          base: '<%= yeoman.dist %>'
         }
       }
     },
@@ -319,7 +328,7 @@ module.exports = function (grunt) {
       'bower-install',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'connect:dev',
       'watch'
     ]);
   });
