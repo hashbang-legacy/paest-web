@@ -20,8 +20,11 @@ angular.module('paestApp')
     }
 
     $scope.save = function(session) {
-      localStorage.setItem($scope.id+':data',$scope.data)
-      var url = 'http://a.pae.st/'+$scope.id
+      var url = 'http://a.pae.st'
+      if ($scope.id){
+        localStorage.setItem($scope.id+':data',$scope.data)
+        url += '/'+$scope.id
+      }
       if ( $scope.key ) url += '/'+$scope.key
       $http({
         url: url,
@@ -31,6 +34,11 @@ angular.module('paestApp')
       }).success(function(data, status, headers, config) {
         $log.log('save:',status)
         $scope.editUrl = data.split('\n')[2].split('#')[0]
+        var id = $scope.editUrl.split('/')[3]
+        if (id != $scope.id) {
+          $scope.id = id;
+          $location.path('/'+$scope.id)
+        }
         $scope.key = $scope.editUrl.split('/')[4]
         localStorage.setItem($scope.id+':key',$scope.key)
       }).error(function(data, status, headers, config) {
@@ -50,16 +58,7 @@ angular.module('paestApp')
         $scope.key = localStorage.getItem($scope.id+':key')
         $scope.load(session)
       } else {
-        var chars = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
-        var base = chars.length;
-        var id = '';
-        var enc = Math.floor(Math.random() * (1000000 - 1000) + 1000)
-        while(enc) {
-          var remainder = enc % base;
-          enc = Math.floor(enc / base);
-          id = chars[remainder].toString() + id;
-        }
-        $location.path('/'+id)
+        $scope.save(session)
       }
 
       $scope.unsaved = false;
