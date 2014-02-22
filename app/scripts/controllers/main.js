@@ -10,10 +10,12 @@ angular.module('paestApp')
         url: 'http://a.pae.st/'+$scope.id,
         method: "GET",
       }).success(function(data, status, headers, config) {
-        $scope.data = data;
-        session.setValue($scope.data);
+        if (data != 'undefined'){
+          $scope.data = data;
+          session.setValue($scope.data);
+          localStorage.setItem($scope.id+':data',$scope.data)
+        }
         $log.log('load:',status)
-        localStorage.setItem($scope.id+':data',$scope.data)
       }).error(function(data, status, headers, config) {
         $log.error('load:',status)
       });
@@ -35,12 +37,15 @@ angular.module('paestApp')
         $log.log('save:',status)
         $scope.editUrl = data.split('\n')[2].split('#')[0]
         var id = $scope.editUrl.split('/')[3]
-        if (id != $scope.id) {
+        if (id && id != $scope.id) {
           $scope.id = id;
           $location.path('/'+$scope.id)
         }
-        $scope.key = $scope.editUrl.split('/')[4]
-        localStorage.setItem($scope.id+':key',$scope.key)
+        var key  = $scope.editUrl.split('/')[3]
+        if (key && key != $scope.key) {
+          $scope.key = $scope.editUrl.split('/')[4]
+          localStorage.setItem($scope.id+':key',$scope.key)
+        }
       }).error(function(data, status, headers, config) {
         $log.error('save:',status)
       });
