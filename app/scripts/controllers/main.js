@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('paestApp')
-  .controller('MainCtrl', function ($log,$scope,$http,$rootScope,$location,$routeParams,$interval) {
+  .controller( 'MainCtrl', function (
+    $log,$scope,$http,$rootScope,$location,$routeParams,$interval) {
 
     $scope.load = function(session){
       $scope.data = localStorage.getItem($scope.id+':data')
@@ -54,7 +55,8 @@ angular.module('paestApp')
     $scope.aceLoaded = function(editor){
 
       var StatusBar = ace.require('ace/ext/statusbar').StatusBar
-      var statusBar = new StatusBar(editor, document.getElementById('status-bar'))
+      var statusBar =
+        new StatusBar(editor, document.getElementById('status-bar'))
       var session = editor.getSession()
 
       if ($routeParams.id){
