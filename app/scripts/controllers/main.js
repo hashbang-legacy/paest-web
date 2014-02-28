@@ -2,7 +2,7 @@
 
 angular.module('paestApp')
   .controller( 'MainCtrl', function (
-    $log,$scope,$http,$rootScope,$location,$routeParams,$interval) {
+    $log, $scope, $http, $rootScope, $location, $routeParams, $interval ) {
 
     $scope.load = function(session){
       $scope.data = localStorage.getItem($scope.id+':data')
@@ -32,19 +32,16 @@ angular.module('paestApp')
       $http({
         url: url,
         method: "POST",
-        data: 'p='+$scope.data,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        data: JSON.stringify({ d: $scope.data }),
+        headers: { 'Content-Type': 'application/json' }
       }).success(function(data, status, headers, config) {
         $log.log('save:',status)
-        $scope.editUrl = data.split('\n')[2].split('#')[0]
-        var id = $scope.editUrl.split('/')[3]
-        if (id && id != $scope.id) {
-          $scope.id = id;
+        if (data.p && data.p != $scope.id) {
+          $scope.id = data.p;
           $location.path('/'+$scope.id)
         }
-        var key  = $scope.editUrl.split('/')[3]
-        if (key && key != $scope.key) {
-          $scope.key = $scope.editUrl.split('/')[4]
+        if (data.k && data.k != $scope.key) {
+          $scope.key = data.k
           localStorage.setItem($scope.id+':key',$scope.key)
         }
       }).error(function(data, status, headers, config) {
