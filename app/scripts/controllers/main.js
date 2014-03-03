@@ -70,8 +70,8 @@ angular.module('paestApp')
             var mode = modelist.getModeForPath($routeParams.id).mode
             $rootScope.language = mode.split('/')[2]
             session.setMode(mode)
-            var extension = $routeParams.id.split('.')[1]
-            if (extension == 'js'){
+            $rootScope.extension = $routeParams.id.split('.')[1]
+            if ($rootScope.extension == 'js'){
                 session.setOption("useWorker", true);
             }
         } else {
