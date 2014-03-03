@@ -4,6 +4,8 @@ angular.module('paestApp')
   .controller( 'MainCtrl', function (
     $log, $scope, $http, $rootScope, $location, $routeParams, $interval ) {
 
+    ace.config.set("basePath","bower_components/ace-builds/src-min-noconflict")
+
     $scope.load = function(session){
       $scope.data = localStorage.getItem($scope.id+':data')
       session.setValue($scope.data);
