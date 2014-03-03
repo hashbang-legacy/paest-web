@@ -2,16 +2,15 @@
   useWrapMode : true,
   showGutter: true,
   theme:'tomorrow_night',
-  mode: 'javascript',
+  mode: 'text',
   onLoad: aceLoaded,
   onChange: aceChanged
   }"></div>
 <div id="status-bar">
 <span class="status">[ {{id}} ]</span>
 <span class="status">[ {{ status || 'editing'}} ]</span>
-<span class="status">[ {{ language || 'js' }} ]</span>
-<span class="status">[ !vim_mode ]</span>
-<span class="status">[ autosave ]</span>
+<span class="status">[ {{ language || 'text' }} ]</span>
+<span class="status">[ !vim ]</span>
 <span class="status">[ ? alt+h ]</span>
 </div>
 

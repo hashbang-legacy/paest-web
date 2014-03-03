@@ -13,6 +13,10 @@ angular.module('paestApp', ['ngRoute','ngResource','ui.ace',])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/:id.:extension', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
       .when('/:id/:key', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'

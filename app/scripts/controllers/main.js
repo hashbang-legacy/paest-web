@@ -40,7 +40,11 @@ angular.module('paestApp')
         $log.log('save:',status)
         if (data.p && data.p != $scope.id) {
           $scope.id = data.p;
-          $location.path('/'+$scope.id)
+          if ($rootScope.extension){
+            $location.path('/'+$scope.id+'.'+$rootScope.extension)
+          } else {
+            $location.path('/'+$scope.id)
+          }
         }
         if (data.k && data.k != $scope.key) {
           $scope.key = data.k
@@ -52,15 +56,27 @@ angular.module('paestApp')
     }
 
     $scope.aceLoaded = function(editor){
-
+    
       var StatusBar = ace.require('ace/ext/statusbar').StatusBar
       var statusBar =
-        new StatusBar(editor, document.getElementById('status-bar'))
+      new StatusBar(editor , document.getElementById('status-bar'))
       var session = editor.getSession()
 
+      session.setOption("useWorker", false);
       if ($routeParams.id){
-        $scope.id = $routeParams.id;
-        $rootScope.id = $routeParams.id;
+        if ($routeParams.id.indexOf('.') !== -1){
+            $rootScope.id = $routeParams.id.split('.')[0]
+            var modelist = ace.require('ace/ext/modelist')
+            var mode = modelist.getModeForPath($routeParams.id).mode
+            $rootScope.language = mode.split('/')[2]
+            session.setMode(mode)
+            var extension = $routeParams.id.split('.')[1]
+            if (extension == 'js'){
+                session.setOption("useWorker", true);
+            }
+        } else {
+            $rootScope.id = $routeParams.id;
+        }
         $scope.key = localStorage.getItem($scope.id+':key')
         $scope.load(session)
       } else {
@@ -69,6 +85,7 @@ angular.module('paestApp')
 
       $scope.unsaved = false;
       session.on("change", function(e){
+        $rootScope.status = '!saved'
         $scope.data = session.getValue();
         $scope.unsaved = true;
       })
@@ -77,6 +94,7 @@ angular.module('paestApp')
         if ($scope.unsaved) {
           $scope.save(session);
         }
+        $rootScope.status = 'saved'
         $scope.unsaved = false;
       },2000)
 
