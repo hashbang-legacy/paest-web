@@ -65,17 +65,17 @@ angular.module('paestApp')
       session.setOption("useWorker", false);
       if ($routeParams.id){
         if ($routeParams.id.indexOf('.') !== -1){
-            $rootScope.id = $routeParams.id.split('.')[0]
-            var modelist = ace.require('ace/ext/modelist')
-            var mode = modelist.getModeForPath($routeParams.id).mode
-            $rootScope.language = mode.split('/')[2]
-            session.setMode(mode)
-            $rootScope.extension = $routeParams.id.split('.')[1]
-            if ($rootScope.extension == 'js'){
-                session.setOption("useWorker", true);
-            }
+          $rootScope.id = $routeParams.id.split('.')[0]
+          var modelist = ace.require('ace/ext/modelist')
+          var mode = modelist.getModeForPath($routeParams.id).mode
+          $rootScope.language = mode.split('/')[2]
+          session.setMode(mode)
+          $rootScope.extension = $routeParams.id.split('.')[1]
+          if ($rootScope.extension == 'js'){
+              session.setOption("useWorker", true);
+          }
         } else {
-            $rootScope.id = $routeParams.id;
+          $rootScope.id = $routeParams.id;
         }
         $scope.key = localStorage.getItem($scope.id+':key')
         $scope.load(session)
@@ -85,17 +85,18 @@ angular.module('paestApp')
 
       $scope.unsaved = false;
       session.on("change", function(e){
-        $rootScope.status = '!saved'
-        $scope.data = session.getValue();
-        $scope.unsaved = true;
+        if ($scope.unsaved){
+          $rootScope.status = '!saved'
+          $scope.data = session.getValue();
+        }
       })
 
       $interval(function(){
         if ($scope.unsaved) {
           $scope.save(session);
+          $rootScope.status = 'saved'
+          $scope.unsaved = false;
         }
-        $rootScope.status = 'saved'
-        $scope.unsaved = false;
       },2000)
 
     }

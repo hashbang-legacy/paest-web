@@ -1,11 +1,15 @@
-<div data-ui-ace="{
-  useWrapMode : true,
-  showGutter: true,
-  theme:'tomorrow_night',
-  mode: 'text',
-  onLoad: aceLoaded,
-  onChange: aceChanged
-  }"></div>
+<div
+  data-ng-init="unsaved = false"
+  data-ng-keyup="unsaved = true"
+  data-ui-ace="{
+    useWrapMode : true,
+    showGutter: true,
+    theme:'tomorrow_night',
+    mode: 'text',
+    onLoad: aceLoaded,
+    onChange: aceChanged
+  }">
+</div>
 <div id="status-bar">
 <span class="status">[ {{id}} ]</span>
 <span class="status">[ {{ status || 'editing'}} ]</span>
