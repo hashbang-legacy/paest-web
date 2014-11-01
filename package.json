@@ -30,7 +30,8 @@
     "load-grunt-tasks": "~0.2.0",
     "time-grunt": "~0.2.1",
     "requirejs": "~2.1.10",
-    "connect-livereload": "~0.3.2"
+    "connect-livereload": "~0.3.2",
+    "connect-modrewrite": "^0.7.9"
   },
   "engines": {
     "node": ">=0.8.0"
