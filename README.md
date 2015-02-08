@@ -65,6 +65,14 @@ grunt serve:dist
 ```
 By default application will be accessible at <http://localhost:9000>
 
+### Deploying ###
+The entire system, front-end, back-end and cache can be easily deployed using Docker
+
+```bash
+$ docker run --name redis -d redis
+$ docker run --name paest-api --link redis:redis -d hashbang/paest-server
+$ docker run --name paest-web --link paest-api:paest-api -d -p 80:80  hashbang/paest-web
+```
 
 ### Extending ###
 
