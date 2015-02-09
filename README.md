@@ -16,7 +16,7 @@ simple.
   1. Clone repo
 
     ```bash
-    git clone git@github.com/lrvick/paest-web.git
+    git clone git@github.com/hashbang/paest-web.git
     ```
 
   2. Install CLI tools
