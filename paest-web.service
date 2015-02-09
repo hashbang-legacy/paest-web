@@ -8,7 +8,6 @@ Restart=always
 ExecStartPre=/usr/bin/docker pull hashbang/paest-web && \
   /usr/bin/docker pull hashbang/paest-server && \
   /usr/bin/docker pull hashbang/redis && \
-  /usr/bin/docker rm -f paest-web paest-api redis
 ExecStart=/usr/bin/docker run \
   --name redis -d redis && \
   /usr/bin/docker run \
