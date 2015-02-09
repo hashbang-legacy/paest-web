@@ -1,25 +1,17 @@
 [Unit]
 Description=Paest Web Server
 Author=Hashbang Team - team@hashbang.sh
-After=docker.service
+After=paest-server.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/bin/docker pull hashbang/paest-web && \
-  /usr/bin/docker pull hashbang/paest-server && \
-  /usr/bin/docker pull hashbang/redis && \
+ExecStartPre=/usr/bin/docker pull hashbang/paest-web
 ExecStart=/usr/bin/docker run \
-  --name redis -d redis && \
-  /usr/bin/docker run \
-  --name paest-api \
-  --link redis:redis \
-  -d hashbang/paest-server && \
-  /usr/bin/docker run \
   --name paest-web \
   --link paest-api:paest-api \
   -p 80:80 \
   hashbang/paest-web
-ExecStop=/usr/bin/docker stop paest-web paest-server redis
+ExecStop=/usr/bin/docker stop paest-web
 
 [Install]
 WantedBy=mulit-user.target
