@@ -1,16 +1,19 @@
 [Unit]
-Description=Paest Web Server
-Author=Hashbang Team - team@hashbang.sh
+Description=#! Paest Web Server
 After=paest-server.service
+Requires=paest-server.service docker.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/bin/docker pull hashbang/paest-web
+ExecStartPre=-/usr/bin/docker pull hashbang/paest-web
+ExecStartPre=-/usr/bin/docker kill paest-web
+ExecStartPre=-/usr/bin/docker rm   paest-web
 ExecStart=/usr/bin/docker run \
   --name paest-web \
   --link paest-api:paest-api \
   -p 80:80 \
   hashbang/paest-web
+
 ExecStop=/usr/bin/docker stop paest-web
 
 [Install]
